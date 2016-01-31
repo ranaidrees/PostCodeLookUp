@@ -5,21 +5,22 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using AutoMapper;
-using JustEatDataAccess;
-using JustEatDataAccess.DataAccess;
-using JustEatDataAccess.Models;
-using JustEatWeb.ViewModels;
+using PostCodeDataAccess.DataAccess;
+using PostCodeDataAccess.Models;
+using PostCodeWeb.ViewModels;
+using System.Data;
+using PostCodeDataAccess.Models.General;
 
-namespace JustEatWeb.Controllers
+namespace PostCodeWeb.Controllers
 {
     public class HomeController : AsyncController
     {
-        private readonly IDataReader _dataReader;
+        private readonly IDataReader<GeneralDetails> _dataReader;
 
         /// <summary>
         /// Dependecy injection will be used to initialize the controller. it is helpful for testing purposes
         /// </summary>
-        public HomeController(IDataReader dataReader)
+        public HomeController(IDataReader<GeneralDetails> dataReader)
         {
             _dataReader = dataReader;
         }
@@ -28,7 +29,7 @@ namespace JustEatWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none", Location = OutputCacheLocation.Client)]
+        //[OutputCache(Duration = 30, VaryByParam = "none", Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             return View();
@@ -39,14 +40,14 @@ namespace JustEatWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [OutputCache(Duration = 2, VaryByParam = "none",  VaryByCustom = "browser")]
+       // [OutputCache(Duration = 2, VaryByParam = "none",  VaryByCustom = "browser")]
         public async Task<ActionResult> Index(PostCodeResultVm postCodeResultVm)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var model = await _dataReader.GetPostCodeResults(postCodeResultVm.Postcode);
+                    GeneralDetails model = await _dataReader.GetDetailsAsync(postCodeResultVm.Postcode);
                     if (model != null)
                     {
                         var restaurantList =

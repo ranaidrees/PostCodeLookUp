@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using JustEatDataAccess.Models;
-using JustEatWeb.ViewModels;
+using PostCodeDataAccess.Models;
+using PostCodeWeb.ViewModels;
+using PostCodeDataAccess.Models.General;
 
-namespace JustEatWeb.Common
+namespace PostCodeWeb.Common
 {
     public static class AutoMapperWebConfiguration
     {

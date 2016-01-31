@@ -1,8 +1,9 @@
-﻿using JustEatDataAccess.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using PostCodeDataAccess.Models;
+using PostCodeDataAccess.Models.General;
 
-namespace JustEatWeb.ViewModels
+namespace PostCodeWeb.ViewModels
 {
     public class PostCodeResultVm
     {
